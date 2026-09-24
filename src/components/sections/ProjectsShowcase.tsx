@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { Sparkles, Calendar, MapPin, ArrowRight } from "lucide-react";
+import { Sparkles, Calendar, MapPin, ArrowRight, CheckCircle } from "lucide-react";
 
 interface Project {
   id: string;
@@ -174,12 +174,10 @@ export const ProjectsShowcase: React.FC = () => {
                 </div>
 
                 <div className="pt-3 border-t border-slate-700/60 flex items-center justify-between text-xs">
-                  <span className="text-emerald-400 font-medium">
-                    ✓ Completed & Inspected
+                  <span className="text-emerald-400 font-medium flex items-center gap-1.5">
+                    <CheckCircle className="w-3.5 h-3.5" />
+                    <span>Completed & Inspected</span>
                   </span>
-                  {/* <span className="text-[#F59E0B] font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                    View Scope <ArrowRight className="w-3.5 h-3.5" />
-                  </span> */}
                 </div>
               </div>
             </div>

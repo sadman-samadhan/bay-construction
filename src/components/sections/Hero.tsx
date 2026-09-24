@@ -100,6 +100,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEstimate }) => {
                   alt="Luxury Home Remodeling by Apex Home Pros"
                   fill
                   priority
+                  sizes="(max-width: 1024px) 100vw, 500px"
                   className="object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />

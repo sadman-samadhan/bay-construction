@@ -42,6 +42,7 @@ export const AboutSnapshot: React.FC = () => {
                 src="/images/services/carpentry.jpg"
                 alt="Master Artisan at Work"
                 fill
+                sizes="(max-width: 1024px) 100vw, 500px"
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />

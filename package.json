@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "seed": "npx sanity datasets import seed-services.ndjson production --replace"
   },
   "dependencies": {
     "@sanity/image-url": "^2.1.1",
@@ -29,5 +30,11 @@
     "eslint-config-next": "16.3.6",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "overrides": {
+    "adm-zip": ">=0.6.1",
+    "smol-toml": ">=1.9.0",
+    "uuid": ">=11.1.1",
+    "js-yaml": "^4.1.0"
   }
 }

@@ -27,45 +27,48 @@ export interface CompanyInfo {
     facebook?: string;
     instagram?: string;
     linkedin?: string;
-    twitter?: string;
+    whatsapp?: string;
   };
 }
 
 export const companyData: CompanyInfo = {
-  name: "Apex Home & Construction Solutions",
-  tagline: "Premier Construction, Remodeling & Property Maintenance",
+  name: "Apex Construction & Interior Solutions",
+  tagline: "Premier Construction, Modern Interior Design & Property Maintenance in Bangladesh",
   shortDescription:
-    "Delivering elite craftsmanship across residential and commercial remodeling, specialized repairs, and full-spectrum property enhancements.",
-  phone: "(555) 789-2470",
-  phoneFormatted: "+15557892470",
-  email: "info@apexconstructionpros.com",
-  emergencyPhone: "(555) 911-2470",
+    "Delivering elite craftsmanship across residential duplexes, luxury apartment interiors, plumbing, electrical, and full-spectrum property maintenance across Dhaka and beyond.",
+  phone: "+880 1711-234567",
+  phoneFormatted: "+8801711234567",
+  email: "info@apexconstructionbd.com",
+  emergencyPhone: "+880 1811-234567",
   address: {
-    street: "1420 Commercial Parkway, Suite 250",
-    city: "Metro Valley",
-    state: "OH",
-    zip: "43215",
+    street: "House 42, Road 11, Block D, Banani",
+    city: "Dhaka",
+    state: "Dhaka Division",
+    zip: "1213",
   },
   serviceAreas: [
-    "Downtown & Metro Area",
-    "North Suburbs",
-    "East Valley",
-    "Westside Estates",
-    "Southern Counties",
+    "Gulshan 1 & 2",
+    "Banani & Baridhara",
+    "Dhanmondi & Lalmatia",
+    "Uttara (Sectors 1-14)",
+    "Bashundhara R/A",
+    "Mirpur & DOHS Areas",
+    "Chattogram Metro",
   ],
   hours: {
-    regular: "Monday - Saturday: 7:00 AM – 7:00 PM",
-    emergency: "24/7 Emergency Dispatch Available",
+    regular: "Saturday - Thursday: 8:00 AM – 8:00 PM (Friday On-Call)",
+    emergency: "24/7 Rapid Emergency Dispatch Available",
   },
   stats: {
-    projectsCompleted: 850,
-    yearsExperience: 16,
+    projectsCompleted: 620,
+    yearsExperience: 14,
     satisfactionRate: 99,
-    expertTeamMembers: 35,
+    expertTeamMembers: 45,
   },
   socials: {
     facebook: "https://facebook.com",
     instagram: "https://instagram.com",
     linkedin: "https://linkedin.com",
+    whatsapp: "https://wa.me/8801711234567",
   },
 };
