@@ -1,26 +1,64 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-brand-primary: #1B2A4A;
+  --color-brand-primary-dark: #0F172A;
+  --color-brand-primary-light: #2C4066;
+  --color-brand-accent: #F59E0B;
+  --color-brand-accent-hover: #D97706;
+  --color-brand-accent-light: #FEF3C7;
+  --color-brand-success: #10B981;
+  --color-surface-light: #F8FAFC;
+  --color-surface-card: #FFFFFF;
+  --color-surface-dark: #0B132B;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --primary: #1B2A4A;
+  --primary-dark: #0F172A;
+  --primary-light: #2C4066;
+  --accent: #F59E0B;
+  --accent-hover: #D97706;
+  --bg-slate: #F8FAFC;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: #1e293b;
+  background-color: #ffffff;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  overflow-x: hidden;
+}
+
+/* Glassmorphism helpers */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.glass-dark {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Hero gradient overlays */
+.hero-gradient {
+  background: linear-gradient(
+    135deg,
+    rgba(15, 23, 42, 0.92) 0%,
+    rgba(27, 42, 74, 0.85) 60%,
+    rgba(15, 23, 42, 0.95) 100%
+  );
+}
+
+/* Gold glow effect */
+.glow-accent {
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.35);
 }
