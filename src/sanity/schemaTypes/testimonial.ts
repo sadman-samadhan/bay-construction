@@ -1,3 +1,5 @@
+import type { Rule } from "sanity";
+
 export const testimonialSchema = {
   name: "testimonial",
   title: "Testimonials & Reviews",
@@ -7,7 +9,7 @@ export const testimonialSchema = {
       name: "name",
       title: "Client Name",
       type: "string",
-      validation: (Rule: any) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       name: "location",
@@ -30,7 +32,7 @@ export const testimonialSchema = {
       title: "Review Comment",
       type: "text",
       rows: 4,
-      validation: (Rule: any) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       name: "verified",

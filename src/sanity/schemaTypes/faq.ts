@@ -1,3 +1,5 @@
+import type { Rule } from "sanity";
+
 export const faqSchema = {
   name: "faq",
   title: "FAQs",
@@ -7,14 +9,14 @@ export const faqSchema = {
       name: "question",
       title: "Question",
       type: "string",
-      validation: (Rule: any) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       name: "answer",
       title: "Answer",
       type: "text",
       rows: 4,
-      validation: (Rule: any) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       name: "category",

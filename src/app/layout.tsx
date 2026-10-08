@@ -1,50 +1,49 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Plus_Jakarta_Sans } from "next/font/google";
+import { companyData } from "@/data/company";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
-  title: "Apex Home & Construction Solutions | Remodeling, Repairs & 24/7 Services",
-  description:
-    "Licensed residential & commercial construction, kitchen and bath remodeling, plumbing, electrical, HVAC, roofing, and handyman repairs. Free upfront estimates and 24/7 emergency service.",
+  metadataBase: new URL(companyData.siteUrl),
+  title: {
+    default: `${companyData.name} | Repairs, Maintenance & Home Services in Dhaka`,
+    template: `%s | ${companyData.name}`,
+  },
+  description: companyData.shortDescription,
   keywords: [
-    "home remodeling",
-    "home repair services",
-    "emergency plumber",
-    "residential electrician",
-    "roofing contractor",
-    "handyman services",
-    "HVAC repair",
-    "kitchen renovation",
-    "painting contractor",
+    "property maintenance Dhaka",
+    "plumber Dhaka",
+    "electrician Dhaka",
+    "AC servicing Dhaka",
+    "water tank cleaning",
+    "home repair Bangladesh",
+    "deep cleaning Dhaka",
+    "waterproofing Dhaka",
+    "annual maintenance contract",
+    "pest control Dhaka",
   ],
   openGraph: {
-    title: "Apex Home & Construction Solutions | Master Craftsmanship",
-    description:
-      "Licensed residential & commercial construction, kitchen and bath remodeling, plumbing, electrical, HVAC, roofing, and handyman repairs.",
+    title: `${companyData.name} — ${companyData.tagline}`,
+    description: companyData.shortDescription,
     type: "website",
+    locale: "en_BD",
+    siteName: companyData.name,
   },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export const viewport: Viewport = {
+  themeColor: "#0f2133",
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >
+    <html lang="en" className={`${jakarta.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans">{children}</body>
     </html>
   );

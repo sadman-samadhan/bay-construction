@@ -1,3 +1,5 @@
+import type { Rule } from "sanity";
+
 export const serviceSchema = {
   name: "service",
   title: "Services",
@@ -7,7 +9,7 @@ export const serviceSchema = {
       name: "title",
       title: "Service Title",
       type: "string",
-      validation: (Rule: any) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       name: "slug",
@@ -17,7 +19,7 @@ export const serviceSchema = {
         source: "title",
         maxLength: 96,
       },
-      validation: (Rule: any) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       name: "category",
@@ -25,17 +27,15 @@ export const serviceSchema = {
       type: "string",
       options: {
         list: [
-          { title: "Major Renovations", value: "Major Renovations" },
-          { title: "General Maintenance", value: "General Maintenance" },
-          { title: "Finishing & Coating", value: "Finishing & Coating" },
-          { title: "Mechanical & Systems", value: "Mechanical & Systems" },
-          { title: "Interior Craftsmanship", value: "Interior Craftsmanship" },
-          { title: "Exterior & Grounds", value: "Exterior & Grounds" },
-          { title: "Exterior Protection", value: "Exterior Protection" },
-          { title: "Specialized Services", value: "Specialized Services" },
+          { title: "Core Trades", value: "core-trades" },
+          { title: "Repairs & Finishes", value: "repairs-finishes" },
+          { title: "Cleaning & Hygiene", value: "cleaning-hygiene" },
+          { title: "Property Care", value: "property-care" },
+          { title: "Safety & Security", value: "safety-smart" },
+          { title: "Emergency", value: "emergency" },
         ],
       },
-      validation: (Rule: any) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       name: "image",
@@ -61,13 +61,23 @@ export const serviceSchema = {
       title: "Short Description (Card view)",
       type: "text",
       rows: 3,
-      validation: (Rule: any) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       name: "fullDescription",
       title: "Full Detailed Description",
       type: "text",
       rows: 6,
+    },
+    {
+      name: "priceFrom",
+      title: "Starting Price (BDT)",
+      type: "number",
+    },
+    {
+      name: "priceUnit",
+      title: "Price Unit (e.g. per visit, per sq ft)",
+      type: "string",
     },
     {
       name: "subServices",

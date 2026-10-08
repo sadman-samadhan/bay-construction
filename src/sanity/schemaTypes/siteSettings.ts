@@ -1,3 +1,5 @@
+import type { Rule } from "sanity";
+
 export const siteSettingsSchema = {
   name: "siteSettings",
   title: "Site Global Settings",
@@ -7,7 +9,7 @@ export const siteSettingsSchema = {
       name: "companyName",
       title: "Company / Business Name",
       type: "string",
-      validation: (Rule: any) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       name: "tagline",

@@ -1,7 +1,7 @@
 /**
- * 🇧🇩 Bangladesh Construction Portfolio — Sanity Auto-Seed Script
+ * 🇧🇩 Apex Property Care — Sanity Auto-Seed Script
  *
- * This script uploads all 12 localized services (with image assets)
+ * This script uploads all localized services (with image assets)
  * directly into your live Sanity dataset (mrh9thvt).
  *
  * Usage:
@@ -39,7 +39,7 @@ const token = process.env.SANITY_API_WRITE_TOKEN;
 
 if (!token) {
   console.log("\n⚠️ SANITY_API_WRITE_TOKEN not found in .env.local.");
-  console.log("To import all 12 services automatically with images:");
+  console.log("To import all services automatically with images:");
   console.log("1. Go to: https://www.sanity.io/manage/project/" + projectId + "/api#tokens");
   console.log("2. Click '+ Add API token', give it 'Editor' permission, and copy the token.");
   console.log('3. Add to .env.local:\n   SANITY_API_WRITE_TOKEN="sk..."');
@@ -60,18 +60,18 @@ const client = createClient({
 
 // Image mapping
 const imageFiles = {
-  "service-remodeling": "remodeling.jpg",
   "service-plumbing": "plumbing.jpg",
   "service-electrical": "electrical.jpg",
-  "service-hvac": "hvac.jpg",
-  "service-carpentry": "carpentry.jpg",
+  "service-ac": "hvac.jpg",
+  "service-appliance": "appliance-repair.jpg",
+  "service-handyman": "home-repair.jpg",
   "service-painting": "painting.jpg",
+  "service-waterproofing": "roofing.jpg",
   "service-flooring": "flooring.jpg",
-  "service-roofing": "roofing.jpg",
-  "service-landscaping": "landscaping.jpg",
-  "service-home-repair": "home-repair.jpg",
+  "service-carpentry": "carpentry.jpg",
+  "service-bath-kitchen": "remodeling.jpg",
   "service-cleaning": "cleaning.jpg",
-  "service-appliance-repair": "appliance-repair.jpg",
+  "service-landscaping": "landscaping.jpg",
 };
 
 async function uploadImage(filename) {
@@ -84,7 +84,7 @@ async function uploadImage(filename) {
 }
 
 async function seed() {
-  console.log(`\n🚀 Seeding 12 Bangladesh Services into Sanity (Project: ${projectId}, Dataset: ${dataset})...\n`);
+  console.log(`\n🚀 Seeding Bangladesh Services into Sanity (Project: ${projectId}, Dataset: ${dataset})...\n`);
 
   const ndjsonPath = path.join(__dirname, "seed-services.ndjson");
   const rawLines = fs.readFileSync(ndjsonPath, "utf-8").trim().split("\n");

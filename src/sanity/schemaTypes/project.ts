@@ -1,3 +1,5 @@
+import type { Rule } from "sanity";
+
 export const projectSchema = {
   name: "project",
   title: "Projects & Portfolio",
@@ -7,7 +9,7 @@ export const projectSchema = {
       name: "title",
       title: "Project Title",
       type: "string",
-      validation: (Rule: any) => Rule.required(),
+      validation: (rule: Rule) => rule.required(),
     },
     {
       name: "category",

@@ -1,80 +1,96 @@
 import { createClient } from "next-sanity";
 import { createImageUrlBuilder } from "@sanity/image-url";
-import { servicesData, ServiceItem } from "@/data/services";
+import { servicesData, type ServiceItem } from "@/data/services";
 
 export const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "";
 export const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
 export const apiVersion = "2024-01-01";
 
+const hasProject = !!projectId && projectId !== "placeholder" && projectId !== "demo_project_id";
+
 export const client = createClient({
   projectId: projectId || "placeholder",
   dataset,
   apiVersion,
-  useCdn: false, // Set to false so changes in /admin appear instantly without caching delay
+  useCdn: true,
 });
 
 const builder = createImageUrlBuilder(client);
 
-export const urlForImage = (source: any) => {
-  if (!source) return null;
-  return builder.image(source).auto("format").fit("max").url();
-};
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const urlForImage = (source: any) => (source ? builder.image(source).auto("format").fit("max").url() : null);
+
+interface CmsService {
+  _id: string;
+  title: string;
+  slug?: string;
+  category?: string;
+  badge?: string;
+  popular?: boolean;
+  shortDescription?: string;
+  fullDescription?: string;
+  subServices?: string[];
+  keyBenefits?: string[];
+  priceFrom?: number;
+  priceUnit?: string;
+  image?: string;
+}
 
 /**
- * Fetch all services from Sanity CMS.
- * Merges CMS services with local starter services:
- * - CMS services take priority (including newly created ones like "Test").
- * - If a CMS service matches a starter service slug, the CMS version overrides it.
+ * Services shown on the site. The typed catalogue in `src/data/services.ts` is the base;
+ * any service edited in Sanity (matched by slug) overrides those fields, and CMS-only services are appended.
  */
 export async function getServices(): Promise<ServiceItem[]> {
-  if (!projectId || projectId === "placeholder" || projectId === "demo_project_id") {
-    return servicesData;
-  }
+  if (!hasProject) return servicesData;
 
   try {
-    const query = `*[_type == "service"] | order(_createdAt desc) {
-      _id,
-      title,
-      "slug": slug.current,
-      category,
-      badge,
-      popular,
-      shortDescription,
-      fullDescription,
-      subServices,
-      keyBenefits,
-      "image": coalesce(image.asset->url, "/images/services/remodeling.jpg")
-    }`;
+    const cms: CmsService[] = await client.fetch(
+      `*[_type == "service"]{ _id, title, "slug": slug.current, category, badge, popular, shortDescription,
+        fullDescription, subServices, keyBenefits, priceFrom, priceUnit, "image": image.asset->url }`,
+      {},
+      { next: { revalidate: 300 } }
+    );
+    if (!cms?.length) return servicesData;
 
-    const cmsServices = await client.fetch(query);
+    const clean = <T extends object>(o: T) =>
+      Object.fromEntries(Object.entries(o).filter(([, v]) => v !== undefined && v !== null && v !== "")) as Partial<T>;
 
-    if (cmsServices && cmsServices.length > 0) {
-      const formattedCmsServices: ServiceItem[] = cmsServices.map((item: any) => ({
-        id: item._id,
-        slug: item.slug || item.title.toLowerCase().replace(/\s+/g, "-"),
-        title: item.title,
-        category: item.category || "General Maintenance",
-        shortDescription: item.shortDescription || "",
-        fullDescription: item.fullDescription || item.shortDescription || "",
-        image: item.image || "/images/services/remodeling.jpg",
+    const merged = servicesData.map((base) => {
+      const hit = cms.find((c) => c.slug === base.slug);
+      if (!hit) return base;
+      const { _id, category, ...rest } = hit;
+      void _id;
+      void category;
+      return { ...base, ...clean(rest) } as ServiceItem;
+    });
+
+    const extras: ServiceItem[] = cms
+      .filter((c) => c.slug && !servicesData.some((s) => s.slug === c.slug))
+      .map((c) => ({
+        id: c._id,
+        slug: c.slug!,
+        title: c.title,
+        category: "repairs-finishes",
         iconName: "Wrench",
-        badge: item.badge,
-        popular: item.popular ?? true,
-        subServices: item.subServices || ["Professional Consultation", "Expert Execution", "Guaranteed Workmanship"],
-        keyBenefits: item.keyBenefits || ["Licensed & Insured", "Transparent Pricing", "Workmanship Warranty"],
+        image: c.image,
+        badge: c.badge,
+        popular: c.popular,
+        shortDescription: c.shortDescription ?? "",
+        fullDescription: c.fullDescription ?? c.shortDescription ?? "",
+        subServices: c.subServices ?? [],
+        keyBenefits: c.keyBenefits ?? ["Verified technicians", "Upfront pricing", "Workmanship warranty"],
+        signs: [],
+        priceFrom: c.priceFrom ?? 500,
+        priceUnit: c.priceUnit ?? "visit",
+        duration: "Varies",
+        warranty: "90 days",
+        faqs: [],
+        keywords: [c.title.toLowerCase()],
       }));
 
-      // Combine CMS services with seed services that have not yet been customized in CMS
-      const remainingSeedServices = servicesData.filter(
-        (seed) => !formattedCmsServices.some((cms) => cms.slug === seed.slug || cms.title.toLowerCase() === seed.title.toLowerCase())
-      );
-
-      return [...formattedCmsServices, ...remainingSeedServices];
-    }
-
-    return servicesData;
+    return [...merged, ...extras];
   } catch (err) {
-    console.warn("Could not fetch from Sanity CMS, using fallback seed services:", err);
+    console.warn("Sanity fetch failed — using local service catalogue.", err);
     return servicesData;
   }
 }
