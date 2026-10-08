@@ -212,7 +212,7 @@ export function CTABand({
         <div className="relative grid items-center gap-10 lg:grid-cols-[1.4fr_1fr]">
           <div>
             <div className="flex items-center gap-2 text-sm font-semibold text-brand-300">
-              <Sparkles className="h-4 w-4" /> Fast response · Transparent pricing · No commitment
+              <Sparkles className="h-4 w-4" /> Quick response · Clear pricing · No obligation
             </div>
             <h2 className="mt-4 text-3xl font-extrabold tracking-tight text-balance sm:text-5xl">{title}</h2>
             <p className="mt-4 max-w-xl text-lg text-ink-200">{text}</p>

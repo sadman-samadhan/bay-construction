@@ -40,7 +40,7 @@ export default function AboutPage() {
       <PageHero
         crumbs={[{ label: "About Us" }]}
         eyebrow={`Since ${companyData.foundedYear}`}
-        title="Your property, our responsibility"
+        title="We look after your property like it's our own"
         description="We started with a simple idea: Bangladeshi families deserve service providers who turn up on time, charge fairly and stand behind their work."
         image="/images/services/carpentry.jpg"
       />

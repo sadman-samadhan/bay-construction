@@ -48,7 +48,7 @@ export default async function ServicesPage() {
           <div className="flex items-center gap-4">
             <span className="grid h-12 w-12 place-items-center rounded-2xl bg-accent-500 text-white"><Siren className="h-6 w-6" /></span>
             <div>
-              <div className="text-lg font-extrabold text-ink-950">Available 365 days a year for urgent failures</div>
+              <div className="text-lg font-extrabold text-ink-950">Here 365 days a year when something breaks</div>
               <div className="text-sm text-ink-600">Burst pipes, short circuits, no water, lockouts. Our emergency line is answered 24/7.</div>
             </div>
           </div>
