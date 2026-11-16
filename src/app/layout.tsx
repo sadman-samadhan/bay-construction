@@ -1,50 +1,29 @@
 import type { Metadata, Viewport } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
-import { companyData } from "@/data/company";
+import { Inter } from "next/font/google";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
+import { site } from "@/lib/site";
 import "./globals.css";
 
-const jakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-});
+const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(companyData.siteUrl),
-  title: {
-    default: `${companyData.name} | Repairs, Maintenance & Home Services in Dhaka`,
-    template: `%s | ${companyData.name}`,
-  },
-  description: companyData.shortDescription,
-  keywords: [
-    "property maintenance Dhaka",
-    "plumber Dhaka",
-    "electrician Dhaka",
-    "AC servicing Dhaka",
-    "water tank cleaning",
-    "home repair Bangladesh",
-    "deep cleaning Dhaka",
-    "waterproofing Dhaka",
-    "annual maintenance contract",
-    "pest control Dhaka",
-  ],
-  openGraph: {
-    title: `${companyData.name} — ${companyData.tagline}`,
-    description: companyData.shortDescription,
-    type: "website",
-    locale: "en_BD",
-    siteName: companyData.name,
-  },
+  metadataBase: new URL(site.url),
+  title: { default: `${site.name} | Property Maintenance, Repair & Renovation`, template: `%s | ${site.name}` },
+  description: site.description,
+  openGraph: { title: site.name, description: site.description, type: "website", siteName: site.name },
 };
 
-export const viewport: Viewport = {
-  themeColor: "#0f2133",
-};
+export const viewport: Viewport = { themeColor: "#ffffff" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${jakarta.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col font-sans">{children}</body>
+    <html lang="en" className={`${inter.variable} h-full antialiased`}>
+      <body className="flex min-h-full flex-col font-sans">
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
+      </body>
     </html>
   );
 }
